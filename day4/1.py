@@ -1,6 +1,7 @@
 import re
 
-def CheckBoard(board : list[bool]) -> bool:
+
+def CheckBoard(board: list[bool]) -> bool:
     for i in range(5):
         if all([board[x + i * 5] for x in range(5)]):
             return True
@@ -8,6 +9,7 @@ def CheckBoard(board : list[bool]) -> bool:
             return True
 
     return False
+
 
 file = open("input", "r")
 lines = file.readlines()
@@ -26,23 +28,23 @@ marked = [[False for _ in range(25)] for _ in range(100)]
 win = -1
 winBoard = -1
 for draw in draws:
-    for (index,board) in enumerate(boards):
+    for (index, board) in enumerate(boards):
         try:
             i = board.index(draw)
             marked[index][i] = True
         except:
             pass
-    
+
     b = False
-    for (index,board) in enumerate(marked):
+    for (index, board) in enumerate(marked):
         if CheckBoard(board):
-           win = draw
-           winBoard = index 
+            win = draw
+            winBoard = index
 
     if win > -1:
         break
 
 
-
-unmarked = [boards[winBoard][x] for x in [i for i in range(25) if not marked[winBoard][i]]]
+unmarked = [boards[winBoard][x]
+            for x in [i for i in range(25) if not marked[winBoard][i]]]
 print(win * sum(unmarked))
